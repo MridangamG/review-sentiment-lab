@@ -1,0 +1,101 @@
+/Users/mridangam/Desktop/Senti Kirtan/src/calibration.py:91: RuntimeWarning: Mean of empty slice
+  "test_acc_unflagged": correct[keep].mean(),
+/Users/mridangam/Desktop/Senti Kirtan/.venv/lib/python3.11/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/Users/mridangam/Desktop/Senti Kirtan/src/calibration.py:93: RuntimeWarning: Mean of empty slice
+  "acc_gain_pts": 100 * (correct[keep].mean() - correct.mean()),
+
+======================================================================
+>>> stage: chunked
+======================================================================
+[chunked] val: 12,000 reviews, mean chunks/review = 2.39, max = 7
+[chunked] test: 20,000 reviews, mean chunks/review = 2.35, max = 7
+>>> chunked done in 4.6s
+
+======================================================================
+>>> stage: evaluate
+======================================================================
+
+Overall test metrics:
+        model      model_name     n  accuracy  precision  recall     f1
+    tfidf_lr TF-IDF + LogReg 20000    0.9176     0.9206  0.9140 0.9173
+         rnn      Simple RNN 20000    0.8340     0.8462  0.8163 0.8310
+        lstm          BiLSTM 20000    0.9015     0.8639  0.9532 0.9063
+chunked_lstm  Chunked BiLSTM 20000    0.8964     0.8556  0.9537 0.9020
+
+By length group:
+        model      model_name grouping group  pct_pos     n  accuracy  precision  recall     f1
+    tfidf_lr TF-IDF + LogReg  two_way short  52.9356 10509    0.9229     0.9270  0.9274 0.9272
+    tfidf_lr TF-IDF + LogReg  two_way  long  46.7496  9491    0.9117     0.9124  0.8972 0.9048
+    tfidf_lr TF-IDF + LogReg quartile    Q1  57.6475  5322    0.9262     0.9367  0.9351 0.9359
+    tfidf_lr TF-IDF + LogReg quartile    Q2  48.1010  5187    0.9196     0.9153  0.9178 0.9165
+    tfidf_lr TF-IDF + LogReg quartile    Q3  46.5270  4679    0.9143     0.9150  0.8994 0.9071
+    tfidf_lr TF-IDF + LogReg quartile    Q4  46.9659  4812    0.9092     0.9100  0.8951 0.9025
+         rnn      Simple RNN  two_way short  52.9356 10509    0.8486     0.8633  0.8483 0.8557
+         rnn      Simple RNN  two_way  long  46.7496  9491    0.8177     0.8237  0.7762 0.7993
+         rnn      Simple RNN quartile    Q1  57.6475  5322    0.8531     0.8848  0.8566 0.8705
+         rnn      Simple RNN quartile    Q2  48.1010  5187    0.8440     0.8377  0.8381 0.8379
+         rnn      Simple RNN quartile    Q3  46.5270  4679    0.8301     0.8303  0.7979 0.8138
+         rnn      Simple RNN quartile    Q4  46.9659  4812    0.8057     0.8171  0.7553 0.7850
+        lstm          BiLSTM  two_way short  52.9356 10509    0.9142     0.8891  0.9572 0.9219
+        lstm          BiLSTM  two_way  long  46.7496  9491    0.8875     0.8339  0.9482 0.8874
+        lstm          BiLSTM quartile    Q1  57.6475  5322    0.9211     0.9086  0.9596 0.9334
+        lstm          BiLSTM quartile    Q2  48.1010  5187    0.9071     0.8661  0.9543 0.9081
+        lstm          BiLSTM quartile    Q3  46.5270  4679    0.8961     0.8441  0.9527 0.8951
+        lstm          BiLSTM quartile    Q4  46.9659  4812    0.8791     0.8242  0.9438 0.8800
+chunked_lstm  Chunked BiLSTM  two_way short  52.9356 10509    0.9132     0.8879  0.9569 0.9211
+chunked_lstm  Chunked BiLSTM  two_way  long  46.7496  9491    0.8777     0.8179  0.9497 0.8789
+chunked_lstm  Chunked BiLSTM quartile    Q1  57.6475  5322    0.9211     0.9086  0.9596 0.9334
+chunked_lstm  Chunked BiLSTM quartile    Q2  48.1010  5187    0.9051     0.8635  0.9535 0.9063
+chunked_lstm  Chunked BiLSTM quartile    Q3  46.5270  4679    0.8934     0.8400  0.9522 0.8926
+chunked_lstm  Chunked BiLSTM quartile    Q4  46.9659  4812    0.8624     0.7977  0.9473 0.8661
+
+Short vs long gap:
+        model  acc_short  acc_long  f1_short  f1_long  acc_gap_short_minus_long  f1_gap_short_minus_long
+    tfidf_lr     0.9229    0.9117    0.9272   0.9048                    0.0112                   0.0224
+         rnn     0.8486    0.8177    0.8557   0.7993                    0.0309                   0.0565
+        lstm     0.9142    0.8875    0.9219   0.8874                    0.0267                   0.0346
+chunked_lstm     0.9132    0.8777    0.9211   0.8789                    0.0355                   0.0422
+
+Truncation effect (max_len=167):
+        model                subset    n  accuracy  precision  recall     f1
+    tfidf_lr long, fits in max_len 8612    0.9124     0.9140  0.8977 0.9058
+    tfidf_lr truncated (> max_len)  879    0.9044     0.8965  0.8920 0.8942
+         rnn long, fits in max_len 8612    0.8219     0.8271  0.7841 0.8050
+         rnn truncated (> max_len)  879    0.7770     0.7869  0.6960 0.7387
+        lstm long, fits in max_len 8612    0.8914     0.8399  0.9495 0.8913
+        lstm truncated (> max_len)  879    0.8487     0.7766  0.9347 0.8483
+chunked_lstm long, fits in max_len 8612    0.8821     0.8253  0.9497 0.8832
+chunked_lstm truncated (> max_len)  879    0.8339     0.7500  0.9497 0.8381
+>>> evaluate done in 0.7s
+
+======================================================================
+>>> stage: calibration
+======================================================================
+
+Calibration (test):
+        model      model_name    ECE  Brier
+    tfidf_lr TF-IDF + LogReg 0.0057 0.0614
+         rnn      Simple RNN 0.0317 0.1277
+        lstm          BiLSTM 0.0671 0.0786
+chunked_lstm  Chunked BiLSTM 0.0632 0.0824
+
+Human-review flagging (threshold chosen on val):
+        model      model_name  threshold_from_val  target_val_accuracy  test_pct_flagged  test_acc_all  test_acc_unflagged  test_acc_flagged  acc_gain_pts  pct_flagged_short  pct_flagged_long
+    tfidf_lr TF-IDF + LogReg               0.695                 0.95              9.42        0.9176              0.9497            0.6088        3.2113             8.9733            9.9147
+         rnn      Simple RNN               0.995                 0.95            100.00        0.8340                 NaN            0.8340           NaN           100.0000          100.0000
+        lstm          BiLSTM               0.935                 0.95             16.20        0.9015              0.9516            0.6423        5.0111            15.0823           17.4376
+chunked_lstm  Chunked BiLSTM               0.830                 0.95             25.71        0.8964              0.9518            0.7361        5.5460            14.4067           38.2257
+>>> calibration done in 0.4s
+
+======================================================================
+>>> stage: errors
+======================================================================
+
+Cause tags among the 20 sampled errors per model:
+        model  truncation  negation  mixed sentiment  sarcasm  other
+    tfidf_lr           0         5               15        4      4
+         rnn           1         2               11        2      7
+        lstm           2         3               15        4      4
+chunked_lstm           0         2               13        2      5
+>>> errors done in 0.0s

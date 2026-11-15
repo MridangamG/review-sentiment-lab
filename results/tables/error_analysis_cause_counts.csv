@@ -1,0 +1,5 @@
+model,truncation,negation,mixed sentiment,sarcasm,other
+tfidf_lr,0,5,15,4,4
+rnn,1,2,11,2,7
+lstm,2,3,15,4,4
+chunked_lstm,0,2,13,2,5

@@ -1,0 +1,13 @@
+[rnn] device=mps vocab=20,002 max_len=167
+[rnn] epoch  1 train_loss=0.6667 acc=0.5965 | val_loss=0.6512 acc=0.6521 | 23s  * saved
+[rnn] epoch  2 train_loss=0.6112 acc=0.6779 | val_loss=0.5449 acc=0.7430 | 20s  * saved
+[rnn] epoch  3 train_loss=0.5534 acc=0.7291 | val_loss=0.5047 acc=0.7857 | 20s  * saved
+[rnn] epoch  4 train_loss=0.5377 acc=0.7465 | val_loss=0.4640 acc=0.8013 | 21s  * saved
+[rnn] epoch  5 train_loss=0.4985 acc=0.7720 | val_loss=0.5160 acc=0.7750 | 21s
+[rnn] epoch  6 train_loss=0.4601 acc=0.7989 | val_loss=0.4650 acc=0.7978 | 21s
+[rnn] epoch  7 train_loss=0.4385 acc=0.8109 | val_loss=0.4132 acc=0.8357 | 20s  * saved
+[rnn] epoch  8 train_loss=0.4271 acc=0.8155 | val_loss=0.4340 acc=0.8283 | 20s
+[rnn] epoch  9 train_loss=0.4070 acc=0.8260 | val_loss=0.4179 acc=0.8377 | 21s
+[rnn] epoch 10 train_loss=0.3999 acc=0.8301 | val_loss=0.4208 acc=0.8323 | 20s
+[rnn] early stopping (no val-loss improvement for 3 epochs)
+[rnn] total training time 3.5 min, params=2,593,409

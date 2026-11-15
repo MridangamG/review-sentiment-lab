@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+
+# Large data files kept local (GitHub limit is 100 MB per file).
+# The app only needs data/processed/test.csv and data/demo/.
+data/raw/
+data/processed/train.csv
+data/processed/val.csv

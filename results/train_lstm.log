@@ -1,0 +1,24 @@
+[lstm] device=mps vocab=20,002 max_len=167
+[lstm] epoch  1 train_loss=0.4747 acc=0.7621 | val_loss=0.4807 acc=0.8348 | 101s  * saved
+[lstm] epoch  2 train_loss=0.3233 acc=0.8608 | val_loss=0.3427 acc=0.8858 | 91s  * saved
+[lstm] epoch  3 train_loss=0.2675 acc=0.8884 | val_loss=0.3833 acc=0.8640 | 89s
+[lstm] epoch  4 train_loss=0.2337 acc=0.9041 | val_loss=0.3414 acc=0.8955 | 89s  * saved
+[lstm] epoch  5 train_loss=0.2199 acc=0.9111 | val_loss=0.3060 acc=0.9023 | 89s  * saved
+[lstm] epoch  6 train_loss=0.2106 acc=0.9151 | val_loss=0.3015 acc=0.9023 | 89s  * saved
+[lstm] epoch  7 train_loss=0.2008 acc=0.9197 | val_loss=0.3107 acc=0.9092 | 89s
+[lstm] epoch  8 train_loss=0.1898 acc=0.9250 | val_loss=0.3185 acc=0.9097 | 89s
+[lstm] epoch  9 train_loss=0.1822 acc=0.9283 | val_loss=0.3243 acc=0.9076 | 89s
+[lstm] early stopping (no val-loss improvement for 3 epochs)
+[lstm] total training time 13.6 min, params=2,824,961
+[rnn] device=mps vocab=20,002 max_len=167
+[rnn] epoch  1 train_loss=0.6575 acc=0.6146 | val_loss=0.6025 acc=0.6890 | 21s  * saved
+[rnn] epoch  2 train_loss=0.5989 acc=0.6915 | val_loss=0.5761 acc=0.7265 | 23s  * saved
+[rnn] epoch  3 train_loss=0.5529 acc=0.7325 | val_loss=0.5444 acc=0.7452 | 22s  * saved
+[rnn] epoch  4 train_loss=0.5180 acc=0.7579 | val_loss=0.5509 acc=0.7542 | 22s
+[rnn] epoch  5 train_loss=0.4791 acc=0.7841 | val_loss=0.4449 acc=0.8201 | 23s  * saved
+[rnn] epoch  6 train_loss=0.4509 acc=0.8002 | val_loss=0.4411 acc=0.8251 | 24s  * saved
+[rnn] epoch  7 train_loss=0.4341 acc=0.8119 | val_loss=0.4051 acc=0.8353 | 23s  * saved
+[rnn] epoch  8 train_loss=0.4221 acc=0.8176 | val_loss=0.3912 acc=0.8403 | 23s  * saved
+[rnn] epoch  9 train_loss=0.4077 acc=0.8250 | val_loss=0.4727 acc=0.8126 | 22s
+[rnn] epoch 10 train_loss=0.3950 acc=0.8295 | val_loss=0.5123 acc=0.8073 | 22s
+[rnn] total training time 3.7 min, params=2,593,409
