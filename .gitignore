@@ -9,3 +9,6 @@ __pycache__/
 data/raw/
 data/processed/train.csv
 data/processed/val.csv
+
+# Private study notes, not for the public repo
+docs/viva_guide.pdf

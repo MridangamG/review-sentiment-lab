@@ -9,7 +9,9 @@ Loads all trained artefacts once (on CPU) and offers:
 """
 from __future__ import annotations
 
+import functools
 import json
+import threading
 from dataclasses import dataclass
 
 import joblib
@@ -21,6 +23,20 @@ from src.chunked import chunk_details, predict_chunked
 from src.models import load_checkpoint
 from src.text_utils import clean_text, tokenize
 from src.vocab import Vocab
+
+
+# The RNN and the BiLSTM are shared by every visitor of the app. Captum's Integrated Gradients
+# puts temporary hooks on the embedding layer, so two requests running at the same time would
+# corrupt each other. Every method that runs a neural model therefore takes this lock.
+_MODEL_LOCK = threading.RLock()
+
+
+def _locked(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        with _MODEL_LOCK:
+            return fn(*args, **kwargs)
+    return wrapper
 
 
 @dataclass
@@ -66,6 +82,7 @@ class SentimentPipeline:
             out.append(torch.sigmoid(model(X)).cpu().numpy())
         return np.concatenate(out)
 
+    @_locked
     def predict_batch(self, clean_texts: list[str], model: str = "lstm") -> np.ndarray:
         toks = [tokenize(c) for c in clean_texts]
         if model == "tfidf_lr":
@@ -78,6 +95,7 @@ class SentimentPipeline:
             return predict_chunked(self.lstm, self.vocab, clean_texts, self.device)[0]
         raise ValueError(model)
 
+    @_locked
     def predict(self, text: str) -> list[Prediction]:
         c, _ = self.prepare(text)
         return [Prediction(m, C.MODEL_NAMES[m], float(self.predict_batch([c], m)[0])) for m in C.MODEL_NAMES]
@@ -100,6 +118,7 @@ class SentimentPipeline:
                 scores[i + 1] += w
         return list(zip(toks, scores.tolist()))
 
+    @_locked
     def lstm_attributions(self, text: str, n_steps: int = 50, kind: str = "lstm") -> tuple[list[tuple[str, float]], float]:
         """Integrated Gradients w.r.t. the embedding layer (all-<OOV> baseline).
         Returns (token, attribution) for the tokens the LSTM actually sees."""
@@ -123,6 +142,7 @@ class SentimentPipeline:
         scores = attr.sum(-1).squeeze(0).detach().cpu().numpy()
         return list(zip(toks, scores.tolist())), float(delta.abs().item())
 
+    @_locked
     def chunk_view(self, text: str):
         c, _ = self.prepare(text)
         return chunk_details(self.lstm, self.vocab, c, self.device)
