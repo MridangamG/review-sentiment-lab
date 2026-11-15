@@ -1,5 +1,8 @@
 # Review Sentiment Lab — does review length affect sentiment classification?
 
+**Live app:** https://review-sentiment-lab.streamlit.app
+(hosted on Streamlit Community Cloud; it installs from `app/requirements.txt` and runs on CPU)
+
 An NLP project that classifies Amazon product reviews as **positive** or **negative** and measures how
 **review length** affects accuracy. Four models are trained and tested on exactly the same splits:
 
